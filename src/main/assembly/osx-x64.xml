@@ -1,0 +1,42 @@
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.0.0 http://maven.apache.org/xsd/assembly-2.0.0.xsd">
+    <id>osx-x64</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+    <fileSets>
+        <fileSet>
+            <directory>${project.build.directory}/osx-x64/pgsql/bin</directory>
+            <outputDirectory>bin</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>${project.build.directory}/osx-x64/pgsql/lib</directory>
+            <outputDirectory>lib</outputDirectory>
+            <excludes>
+                <exclude>**/*.a</exclude>
+            </excludes>
+        </fileSet>
+        <fileSet>
+            <directory>${project.build.directory}/osx-x64/pgsql/share/postgresql</directory>
+            <outputDirectory>share/postgresql</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>${project.build.directory}/linux-x64/pgsql/doc</directory>
+            <outputDirectory>doc</outputDirectory>
+            <includes>
+                <include>*.*</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>${basedir}/src/main/resources/sh</directory>
+            <outputDirectory>.</outputDirectory>
+            <fileMode>0755</fileMode>
+        </fileSet>
+        <fileSet>
+            <directory>${basedir}/src/main/resources/common</directory>
+            <outputDirectory>.</outputDirectory>
+            <fileMode>0644</fileMode>
+        </fileSet>
+    </fileSets>
+</assembly>

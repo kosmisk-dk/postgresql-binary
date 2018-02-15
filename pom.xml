@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>dk.kosmisk</groupId>
+    <artifactId>postgresql-binary</artifactId>
+    <version>10.2</version>
+    <packaging>pom</packaging>
+
+    <name>${project.groupId}:${project.artifactId}</name>
+
+    <developers>
+        <developer>
+            <name>Morten Bøgeskov</name>
+            <email>source@kosmisk.dk</email>
+            <organization>kosmisk-dk</organization>
+            <organizationUrl>https://kosmisk.dk/</organizationUrl>
+        </developer>
+    </developers>
+    
+    <scm>
+        <connection>scm:git:git://github.com/kosmisk-dk/postgresql-binary.git</connection>
+        <developerConnection>scm:git:ssh://github.com:kosmisk-dk/postgresql-binary.git</developerConnection>
+        <url>https://github.com/kosmisk-dk/postgresql-binary/tree/master</url>
+    </scm>
+
+    <licenses>
+        <license>
+            <name>PostgreSQL</name>
+            <url>https://git.postgresql.org/gitweb/?p=postgresql.git;a=blob_plain;f=COPYRIGHT;hb=HEAD</url>
+        </license>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>https://github.com/kosmisk-dk/postgresql-binary/tree/master/LICENSE.txt</url>
+        </license>
+    </licenses>
+    
+    <properties>
+        <skip.linux>false</skip.linux>
+        <skip.windows>false</skip.windows>
+        <skip.osx>false</skip.osx>
+        <postgresql.version>${project.version}</postgresql.version>
+        <postgresql.download.version>${postgresql.version}-1</postgresql.download.version>
+        <postgresql.base.url>https://get.enterprisedb.com/postgresql/postgresql-${postgresql.download.version}</postgresql.base.url>
+    </properties>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.googlecode.maven-download-plugin</groupId>
+                <artifactId>download-maven-plugin</artifactId>
+                <version>1.3.0</version>
+                <executions>
+                    <execution>
+                        <id>download-linux-x64</id>
+                        <goals>
+                            <goal>wget</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <url>${postgresql.base.url}-linux-x64-binaries.tar.gz</url>
+                            <outputDirectory>${project.build.directory}/linux-x64</outputDirectory>
+                            <type>tar.gz</type>
+                            <unpack>true</unpack>
+                            <skip>${skip.linux}</skip>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>download-linux-x86</id>
+                        <goals>
+                            <goal>wget</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <url>${postgresql.base.url}-linux-binaries.tar.gz</url>
+                            <outputDirectory>${project.build.directory}/linux-x86</outputDirectory>
+                            <type>tar.gz</type>
+                            <unpack>true</unpack>
+                            <skip>${skip.linux}</skip>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>download-windows-x64</id>
+                        <goals>
+                            <goal>wget</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <url>${postgresql.base.url}-windows-x64-binaries.zip</url>
+                            <outputDirectory>${project.build.directory}/windows-x64</outputDirectory>
+                            <type>zip</type>
+                            <unpack>true</unpack>
+                            <skip>${skip.windows}</skip>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>download-windows-x86</id>
+                        <goals>
+                            <goal>wget</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <url>${postgresql.base.url}-windows-binaries.zip</url>
+                            <outputDirectory>${project.build.directory}/windows-x86</outputDirectory>
+                            <type>zip</type>
+                            <unpack>true</unpack>
+                            <skip>${skip.windows}</skip>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>download-osx-x86</id>
+                        <goals>
+                            <goal>wget</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <url>${postgresql.base.url}-osx-binaries.zip</url>
+                            <outputDirectory>${project.build.directory}/osx-64</outputDirectory>
+                            <type>zip</type>
+                            <unpack>true</unpack>
+                            <skip>${skip.osx}</skip>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions> 
+                    <execution>
+                        <id>package linux</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>src/main/assembly/linux-x64.xml</descriptor>
+                                <descriptor>src/main/assembly/linux-x86.xml</descriptor>
+                            </descriptors>
+                            <skipAssembly>${skip.linux}</skipAssembly>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>package windows</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>src/main/assembly/windows-x64.xml</descriptor>
+                                <descriptor>src/main/assembly/windows-x86.xml</descriptor>
+                            </descriptors>
+                            <skipAssembly>${skip.windows}</skipAssembly>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>package osx</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>src/main/assembly/osx-x64.xml</descriptor>
+                            </descriptors>
+                            <skipAssembly>${skip.osx}</skipAssembly>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
