@@ -39,6 +39,7 @@
         <skip.linux>false</skip.linux>
         <skip.windows>false</skip.windows>
         <skip.osx>false</skip.osx>
+        <gpg.sign>false</gpg.sign>
         <postgresql.version>${project.version}</postgresql.version>
         <postgresql.download.version>${postgresql.version}-1</postgresql.download.version>
         <postgresql.base.url>https://get.enterprisedb.com/postgresql/postgresql-${postgresql.download.version}</postgresql.base.url>
@@ -184,6 +185,9 @@
                         <goals>
                             <goal>sign</goal>
                         </goals>
+                        <configuration>
+                            <skip>${gpg.sign}</skip>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
