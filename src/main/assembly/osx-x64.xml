@@ -22,7 +22,7 @@
             <outputDirectory>share/postgresql</outputDirectory>
         </fileSet>
         <fileSet>
-            <directory>${project.build.directory}/linux-x64/pgsql/doc</directory>
+            <directory>${project.build.directory}/osx-x64/pgsql/doc</directory>
             <outputDirectory>doc</outputDirectory>
             <includes>
                 <include>*.*</include>

@@ -116,7 +116,7 @@
                         <phase>generate-resources</phase>
                         <configuration>
                             <url>${postgresql.base.url}-osx-binaries.zip</url>
-                            <outputDirectory>${project.build.directory}/osx-64</outputDirectory>
+                            <outputDirectory>${project.build.directory}/osx-x64</outputDirectory>
                             <type>zip</type>
                             <unpack>true</unpack>
                             <skip>${skip.osx}</skip>
