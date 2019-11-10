@@ -47,7 +47,7 @@
         <skip.linux>false</skip.linux>
         <skip.windows>false</skip.windows>
         <skip.osx>false</skip.osx>
-        <gpg.no-sign>true</gpg.no-sign>
+        <gpg.no-sign>false</gpg.no-sign>
         <postgresql.version>${project.version}</postgresql.version>
         <postgresql.download.version>${postgresql.version}-2</postgresql.download.version>
         <postgresql.base.url>https://get.enterprisedb.com/postgresql/postgresql-${postgresql.download.version}</postgresql.base.url>
