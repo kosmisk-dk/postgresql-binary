@@ -4,7 +4,7 @@
 
     <groupId>dk.kosmisk</groupId>
     <artifactId>postgresql-binary</artifactId>
-    <version>10.4</version>
+    <version>10.10</version>
     <packaging>pom</packaging>
 
     <name>${project.groupId}:${project.artifactId}</name>
@@ -49,7 +49,7 @@
         <skip.osx>false</skip.osx>
         <gpg.no-sign>true</gpg.no-sign>
         <postgresql.version>${project.version}</postgresql.version>
-        <postgresql.download.version>${postgresql.version}-1</postgresql.download.version>
+        <postgresql.download.version>${postgresql.version}-2</postgresql.download.version>
         <postgresql.base.url>https://get.enterprisedb.com/postgresql/postgresql-${postgresql.download.version}</postgresql.base.url>
     </properties>
     
@@ -58,7 +58,7 @@
             <plugin>
                 <groupId>com.googlecode.maven-download-plugin</groupId>
                 <artifactId>download-maven-plugin</artifactId>
-                <version>1.3.0</version>
+                <version>1.4.2</version>
                 <executions>
                     <execution>
                         <id>download-linux-x64</id>
@@ -136,7 +136,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.2.0</version>
                 <executions> 
                     <execution>
                         <id>package linux</id>
@@ -185,7 +185,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.5</version>
+                <version>1.6</version>
                 <executions>
                     <execution>
                         <id>sign-artifacts</id>
@@ -221,7 +221,7 @@
                     <plugin>
                         <groupId>org.sonatype.plugins</groupId>
                         <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>1.6.7</version>
+                        <version>1.6.8</version>
                         <extensions>true</extensions>
                         <configuration>
                             <serverId>ossrh</serverId>
